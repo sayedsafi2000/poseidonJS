@@ -1,0 +1,42 @@
+{
+  "name": "create-poseidonjs",
+  "version": "1.4.9",
+  "description": "CLI tool to create PoseidonJS e-commerce projects (Backend, Admin Dashboard, Frontend)",
+  "main": "index.js",
+  "bin": {
+    "create-poseidonjs": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node bin/cli.js --help"
+  },
+  "keywords": [
+    "poseidonjs",
+    "ecommerce",
+    "cli",
+    "create",
+    "boilerplate",
+    "backend",
+    "admin",
+    "frontend",
+    "nextjs",
+    "express",
+    "mongodb"
+  ],
+  "author": "PoseidonJS Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/poseidonjs/create-poseidonjs.git"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "inquirer": "^8.2.5",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "fs-extra": "^11.2.0",
+    "gradient-string": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

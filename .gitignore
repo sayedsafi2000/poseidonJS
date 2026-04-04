@@ -1,0 +1,54 @@
+# Dependencies
+node_modules/
+
+# Next.js / frontend builds
+.next/
+out/
+
+# Misc build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment & secrets (keep *.example for docs)
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Local API keys / notes — never publish
+claude-api-key.md
+*.pem
+*.p12
+
+# Logs & debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+logs/
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# Caches
+.turbo/
+.cache/
+.parcel-cache/
+.eslintcache
+
+# OS
+.DS_Store
+.DS_Store?
+Thumbs.db
+
+# IDE (optional — remove these lines if you want shared editor settings)
+.idea/
+*.swp
+*.swo
+*~
+
+# Vercel / deploy
+.vercel
