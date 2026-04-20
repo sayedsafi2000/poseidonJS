@@ -97,9 +97,9 @@ const register = async (req, res, next) => {
       vendorInfo,
     } = req.body;
 
-    // Validate role - only admin and vendor allowed
-    if (!role || !['admin', 'vendor'].includes(role)) {
-      throw new ApiError(400, 'Invalid role. Must be admin or vendor');
+    // Validate role - only vendor allowed via public registration
+    if (!role || role !== 'vendor') {
+      throw new ApiError(400, 'Invalid role. Must be vendor');
     }
 
     // Validate avatar for admin and vendor

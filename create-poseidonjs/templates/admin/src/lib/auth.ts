@@ -22,7 +22,7 @@ export interface RegisterData extends LoginData {
   phone?: string;
   address?: string;
   avatar?: string;
-  role: 'admin' | 'vendor';
+  role: 'vendor';
   vendorInfo?: {
     businessName?: string;
     businessAddress?: string;

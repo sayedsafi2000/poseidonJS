@@ -169,8 +169,8 @@ export default function SignupPage() {
         phone: phone || undefined,
         address: address || undefined,
         avatar,
-        role: role as 'admin' | 'vendor',
-        vendorInfo: role === 'vendor' ? vendorInfo : undefined,
+        role: 'vendor',
+        vendorInfo,
       });
 
       toast.success('Registration successful! Please check your email to verify your account.');
@@ -198,24 +198,6 @@ export default function SignupPage() {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Role Selection */}
-            <div>
-              <label className="label">Account Type *</label>
-              <select
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                className="input-field"
-                required
-              >
-                <option value="vendor">Vendor</option>
-                <option value="admin">Admin</option>
-              </select>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                Select your account type (Admin or Vendor only)
-              </p>
-            </div>
-
             {/* Profile Image */}
             <div>
               <label className="label flex items-center gap-2">
