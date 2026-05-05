@@ -73,7 +73,7 @@ export default function StorefrontProductCard({
               aria-label={saved ? 'Remove from wishlist' : 'Add to wishlist'}
               className={cn(
                 'absolute top-4 left-4 z-[2] transition-opacity shadow-lg',
-                saved ? 'opacity-100 text-red-500 hover:text-red-600' : 'opacity-0 group-hover:opacity-100'
+                saved ? 'opacity-100 text-red-500 hover:text-red-600' : 'opacity-100 text-slate-700 hover:text-red-500'
               )}
               onClick={(e) => {
                 e.preventDefault();
