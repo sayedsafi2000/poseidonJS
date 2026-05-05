@@ -54,7 +54,10 @@ export default function AIChat({ onClose }: AIChatProps) {
       const newMessage: Message = {
         id: Date.now().toString(),
         role: 'assistant',
-        content: data.message,
+        content:
+          data.message ||
+          data.aiSummary ||
+          'I processed your request, but no response was returned. Try rephrasing.',
         timestamp: new Date(),
         intent: data.intent,
         action: data.action,

@@ -42,6 +42,8 @@ export default function VendorsPage() {
   });
 
   const handleStatusToggle = (vendorId: string, currentStatus: boolean) => {
+    const action = currentStatus ? 'block' : 'unblock';
+    if (!confirm(`Are you sure you want to ${action} this vendor?`)) return;
     updateStatusMutation.mutate({ id: vendorId, isActive: !currentStatus });
   };
 

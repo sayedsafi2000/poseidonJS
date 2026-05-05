@@ -241,10 +241,11 @@ const extractProductDataByKeywords = (message) => {
  * Extract product data from message using Claude
  */
 const extractProductData = async (message) => {
+  // First try keyword-based extraction (always works). Hoisted so the catch
+  // block below can fall back to it when the AI call throws.
+  const keywordData = extractProductDataByKeywords(message);
+
   try {
-    // First try keyword-based extraction (always works)
-    const keywordData = extractProductDataByKeywords(message);
-    
     // If API key is not configured, use keyword-based extraction
     if (!process.env.ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY === 'your_claude_api_key_here') {
       console.log('Using keyword-based product extraction:', keywordData);
