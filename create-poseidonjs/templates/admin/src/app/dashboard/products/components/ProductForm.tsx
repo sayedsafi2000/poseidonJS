@@ -629,6 +629,11 @@ export default function ProductForm({ mode, productId }: ProductFormProps) {
       return;
     }
 
+    if (formData.isOnSale && !formData.hasVariants && !formData.salePrice) {
+      toast.error('Sale price is required when product is marked on sale');
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -1205,7 +1210,7 @@ export default function ProductForm({ mode, productId }: ProductFormProps) {
                     />
                   </div>
                   <div>
-                    <label className="label">Sale price</label>
+                    <label className="label">Sale price{formData.isOnSale ? ' *' : ''}</label>
                     <input
                       type="number"
                       name="salePrice"
@@ -1214,7 +1219,11 @@ export default function ProductForm({ mode, productId }: ProductFormProps) {
                       step="0.01"
                       min="0"
                       className="input-field"
+                      required={formData.isOnSale}
                     />
+                    {formData.isOnSale && !formData.salePrice && (
+                      <p className="mt-1 text-xs text-red-600">Sale price required when product is marked on sale</p>
+                    )}
                   </div>
                   <div>
                     <label className="label">Cost per item</label>

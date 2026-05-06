@@ -43,7 +43,7 @@ function ProductsPageInner() {
     },
   });
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: [
       'products',
       page,
@@ -68,6 +68,8 @@ function ProductsPageInner() {
       const response = await api.get(`/products?${params.toString()}`);
       return response.data.data;
     },
+    placeholderData: (prev) => prev,
+    staleTime: 30_000,
   });
 
   const handleAddToCart = (product: any) => {
@@ -87,7 +89,9 @@ function ProductsPageInner() {
 
         <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
           <p className="text-gray-600">
-            {data?.pagination?.total ?? 0} products found
+            {isLoading
+              ? 'Loading products…'
+              : `${data?.pagination?.total ?? 0} products found${isFetching ? ' (updating…)' : ''}`}
           </p>
 
           <div className="flex gap-4 w-full md:w-auto flex-wrap">

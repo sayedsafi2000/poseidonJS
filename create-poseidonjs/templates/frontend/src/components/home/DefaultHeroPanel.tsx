@@ -35,7 +35,7 @@ export default function DefaultHeroPanel({ embedded }: { embedded?: boolean }) {
               size="lg"
               variant="outline"
               asChild
-              className="border-white/30 text-white hover:bg-white/10 backdrop-blur-sm"
+              className="border-2 border-white bg-white/10 text-white hover:bg-white hover:text-slate-900 backdrop-blur-sm font-semibold"
             >
               <Link href="/categories">Browse Categories</Link>
             </Button>
