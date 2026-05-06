@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { Button } from '@/components/ui/button';
@@ -9,11 +10,27 @@ import toast from 'react-hot-toast';
 
 export function AccountAreaLayout({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
-  const [hasToken, setHasToken] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [hasToken, setHasToken] = useState<boolean | null>(null);
 
   useEffect(() => {
-    setHasToken(typeof window !== 'undefined' && !!localStorage.getItem('token'));
-  }, []);
+    if (typeof window === 'undefined') return;
+    const token = !!localStorage.getItem('token');
+    setHasToken(token);
+    if (!token) {
+      const next = encodeURIComponent(pathname || '/account');
+      router.replace(`/login?next=${next}`);
+    }
+  }, [pathname, router]);
+
+  if (hasToken === null || hasToken === false) {
+    return (
+      <div className="container-custom py-12 text-center text-gray-600">
+        Redirecting to login…
+      </div>
+    );
+  }
 
   const { data: meUser } = useQuery({
     queryKey: ['user-profile'],

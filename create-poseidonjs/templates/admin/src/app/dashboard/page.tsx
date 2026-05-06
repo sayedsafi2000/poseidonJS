@@ -1,6 +1,7 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import api from '@/lib/api';
 import {
   Wallet,
@@ -29,6 +30,7 @@ export default function DashboardPage() {
       icon: Wallet,
       color: 'text-green-600 dark:text-green-400',
       bgColor: 'bg-green-50 dark:bg-green-900/20',
+      href: '/dashboard/analytics',
     },
     {
       name: 'Total Orders',
@@ -36,6 +38,7 @@ export default function DashboardPage() {
       icon: ShoppingBag,
       color: 'text-blue-600 dark:text-blue-400',
       bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+      href: '/dashboard/orders',
     },
     {
       name: 'Total Products',
@@ -43,6 +46,7 @@ export default function DashboardPage() {
       icon: Box,
       color: 'text-purple-600 dark:text-purple-400',
       bgColor: 'bg-purple-50 dark:bg-purple-900/20',
+      href: '/dashboard/products',
     },
     {
       name: 'Total Customers',
@@ -50,6 +54,7 @@ export default function DashboardPage() {
       icon: UserCheck,
       color: 'text-orange-600 dark:text-orange-400',
       bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+      href: '/dashboard/customers',
     },
   ];
 
@@ -60,6 +65,7 @@ export default function DashboardPage() {
       icon: Clock,
       color: 'text-yellow-600 dark:text-yellow-400',
       bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
+      href: '/dashboard/orders?status=pending',
     },
     {
       title: 'Low Stock Products',
@@ -67,6 +73,7 @@ export default function DashboardPage() {
       icon: PackageX,
       color: 'text-red-600 dark:text-red-400',
       bgColor: 'bg-red-50 dark:bg-red-900/20',
+      href: '/dashboard/products?stock=low',
     },
     {
       title: 'Monthly Revenue',
@@ -74,6 +81,7 @@ export default function DashboardPage() {
       icon: TrendingUp,
       color: 'text-green-600 dark:text-green-400',
       bgColor: 'bg-green-50 dark:bg-green-900/20',
+      href: '/dashboard/analytics',
     },
   ];
 
@@ -91,7 +99,11 @@ export default function DashboardPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {statCards.map((stat) => (
-          <div key={stat.name} className="card p-4">
+          <Link
+            key={stat.name}
+            href={stat.href}
+            className="card p-4 hover:shadow-md hover:border-primary-300 dark:hover:border-primary-700 transition-all cursor-pointer"
+          >
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
@@ -105,14 +117,18 @@ export default function DashboardPage() {
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
       {/* Alerts */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {alerts.map((alert) => (
-          <div key={alert.title} className="card p-4">
+          <Link
+            key={alert.title}
+            href={alert.href}
+            className="card p-4 hover:shadow-md hover:border-primary-300 dark:hover:border-primary-700 transition-all cursor-pointer"
+          >
             <div className="flex items-center gap-3">
               <div className={`${alert.bgColor} p-2.5 rounded-lg`}>
                 <alert.icon className={`w-5 h-5 ${alert.color}`} />
@@ -126,7 +142,7 @@ export default function DashboardPage() {
                 </p>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

@@ -120,22 +120,26 @@ export default function AnalyticsPage() {
             Products by Category
           </h2>
           {productData?.productsByCategory && productData.productsByCategory.length > 0 ? (
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
                   data={productData.productsByCategory}
                   dataKey="count"
                   nameKey="name"
                   cx="50%"
-                  cy="50%"
-                  outerRadius={80}
-                  label
+                  cy="45%"
+                  outerRadius={90}
+                  label={({ name, percent }: { name: string; percent: number }) =>
+                    `${name} (${(percent * 100).toFixed(0)}%)`
+                  }
+                  labelLine={false}
                 >
                   {productData.productsByCategory.map((entry: any, index: number) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <Tooltip formatter={(value: any, name: any) => [`${value} products`, name]} />
+                <Legend verticalAlign="bottom" height={36} />
               </PieChart>
             </ResponsiveContainer>
           ) : (
