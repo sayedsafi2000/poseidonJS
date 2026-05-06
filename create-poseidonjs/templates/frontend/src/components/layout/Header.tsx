@@ -116,7 +116,13 @@ export default function Header() {
               variant="ghost"
               size="icon"
               className="relative"
-              onClick={() => setSearchOpen(!searchOpen)}
+              onClick={() =>
+                setSearchOpen((v) => {
+                  const next = !v;
+                  if (!next) setHeaderSearch('');
+                  return next;
+                })
+              }
               type="button"
               aria-expanded={searchOpen}
               aria-label="Toggle search"
