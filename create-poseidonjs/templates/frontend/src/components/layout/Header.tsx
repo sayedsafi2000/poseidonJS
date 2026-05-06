@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { useCartStore } from '@/store/cartStore';
 import { useWishlist } from '@/hooks/useWishlist';
 import { useAuthSession } from '@/hooks/useAuthSession';
@@ -13,9 +13,16 @@ import { ShoppingCart, User, Menu, X, Heart, Package, LogIn, Search, LogOut } fr
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [headerSearch, setHeaderSearch] = useState('');
+
+  useEffect(() => {
+    setSearchOpen(false);
+    setMobileMenuOpen(false);
+    setHeaderSearch('');
+  }, [pathname]);
   const cartItemCount = useCartStore((state) =>
     state.items.reduce((sum, item) => sum + item.quantity, 0)
   );

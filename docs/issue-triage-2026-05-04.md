@@ -9,22 +9,29 @@ Triage of 23 issues reported by manual QA across PoseidonJS storefront, admin da
 - 🔍 **Verified non-bug** — code already correct or by design, no fix needed
 - ⏳ **Pending** — not yet addressed
 
-## Status snapshot — 2026-05-05
+## Status snapshot — 2026-05-06
 
 | Bucket | Done / open | Notes |
 |--------|-------------|-------|
 | Wishlist heart visibility (extra) | ✅ Merged in PR #2 | `fix/wishlist-heart-visibility` |
-| P0 #2 Add to cart silently fails | 🚧 PR #3 open | `fix/cart-guest-add` |
+| P0 #2 Add to cart silently fails | ✅ Merged in PR #3 | `fix/cart-guest-add` |
 | P0 #1, #1b, #3, #5 server errors | ⏳ Pending — not reproducible from current dev stack | Need browser repro w/ stack trace |
-| P1 #6 AI chatbot empty bubble | 🚧 In PR `fix/p1-confirms-and-search` | Frontend coalesce + backend scope bug |
-| P1 #8 Block vendor confirm | 🚧 In same PR | |
-| P1 #9 Search "SonySony" dedup | 🚧 In same PR | |
+| P1 #6 AI chatbot empty bubble | 🚧 In PR `fix/p1-confirms-and-search` (#4 open) | Frontend coalesce + backend scope bug |
+| P1 #8 Block vendor confirm | 🚧 In PR #4 | |
+| P1 #9 Search "SonySony" dedup | 🚧 In PR #4 | |
 | P1 #7 Delete product | 🔍 Non-bug | onClick already wired at `products/page.tsx:321` |
 | P1 #10 /returns shows shipping | 🔍 Non-bug | content correct, browser cache |
 | P1 #4 FAQ infinite loading | ⏳ Pending — needs runtime verify | Likely resolves with broader fixes |
+| P2 #11 search first-click | 🚧 In PR `fix/p2-ux-bundle` | Pathname effect closes overlay; functional setState already from PR #4 |
+| P2 #12 hero CTA invisible text | 🚧 In PR `fix/p2-ux-bundle` | Solid white border + bg, hover invert |
+| P2 #13 products slow / "0 found" | 🚧 In PR `fix/p2-ux-bundle` | `placeholderData` keeps prior data + count hidden during initial load |
+| P2 #14 Vendor Blocked filter | 🚧 In PR `fix/p2-ux-bundle` | Renamed Inactive → Blocked |
+| P2 #15 Verify Vendor action | 🚧 In PR `fix/p2-ux-bundle` | New `PATCH /api/users/:id/verify` + UI button |
+| P2 #16 search ghost after nav | 🚧 In PR `fix/p2-ux-bundle` | `usePathname` effect resets header state |
+| P2 #17 sale price required | 🚧 In PR `fix/p2-ux-bundle` | Required attr + submit guard when isOnSale |
+| P3 #18, #20–#22 | ⏳ Pending | PR 6 |
 | P3 #19 Missing standalone admin pages | 🔍 Non-bug | Pages exist; tied to P0 #5 |
 | P3 #23 /special-offers 404 | 🔍 Non-bug | Intentional; redirect can be added |
-| P2 #11–#17, P3 #18, #20–#22 | ⏳ Pending | PR 3 / PR 4 |
 
 ## Context
 

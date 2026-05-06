@@ -148,8 +148,45 @@ const updateUserStatus = async (req, res, next) => {
   }
 };
 
+const verifyVendor = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { isVerified = true } = req.body;
+
+    if (typeof isVerified !== 'boolean') {
+      throw new ApiError(400, 'isVerified must be a boolean');
+    }
+
+    const user = await User.findById(id);
+    if (!user) {
+      throw new ApiError(404, 'User not found');
+    }
+    if (user.role !== 'vendor') {
+      throw new ApiError(400, 'User is not a vendor');
+    }
+
+    user.isVerified = isVerified;
+    await user.save();
+
+    res.json({
+      success: true,
+      message: `Vendor ${isVerified ? 'verified' : 'unverified'} successfully`,
+      data: {
+        user: {
+          id: user._id,
+          email: user.email,
+          isVerified: user.isVerified,
+        },
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAllUsers,
   getVendors,
   updateUserStatus,
+  verifyVendor,
 };

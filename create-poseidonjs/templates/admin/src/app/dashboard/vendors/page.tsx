@@ -41,10 +41,30 @@ export default function VendorsPage() {
     },
   });
 
+  const verifyMutation = useMutation({
+    mutationFn: async ({ id, isVerified }: { id: string; isVerified: boolean }) => {
+      const response = await api.patch(`/users/${id}/verify`, { isVerified });
+      return response.data;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['vendors'] });
+      toast.success(variables.isVerified ? 'Vendor verified' : 'Vendor unverified');
+    },
+    onError: (error: any) => {
+      toast.error(error.response?.data?.message || 'Failed to update verification');
+    },
+  });
+
   const handleStatusToggle = (vendorId: string, currentStatus: boolean) => {
     const action = currentStatus ? 'block' : 'unblock';
     if (!confirm(`Are you sure you want to ${action} this vendor?`)) return;
     updateStatusMutation.mutate({ id: vendorId, isActive: !currentStatus });
+  };
+
+  const handleVerifyToggle = (vendorId: string, currentVerified: boolean) => {
+    const action = currentVerified ? 'unverify' : 'verify';
+    if (!confirm(`Are you sure you want to ${action} this vendor?`)) return;
+    verifyMutation.mutate({ id: vendorId, isVerified: !currentVerified });
   };
 
   return (
@@ -74,7 +94,7 @@ export default function VendorsPage() {
             >
               <option value="">All Status</option>
               <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
+              <option value="inactive">Blocked</option>
             </select>
           </div>
 
@@ -200,17 +220,30 @@ export default function VendorsPage() {
                         </span>
                       </td>
                       <td className="px-4 py-4 whitespace-nowrap text-sm">
-                        <button
-                          onClick={() => handleStatusToggle(vendor._id, vendor.isActive)}
-                          disabled={updateStatusMutation.isPending}
-                          className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                            vendor.isActive
-                              ? 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/20 dark:text-red-400'
-                              : 'bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/20 dark:text-green-400'
-                          }`}
-                        >
-                          {vendor.isActive ? 'Block' : 'Publish'}
-                        </button>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleStatusToggle(vendor._id, vendor.isActive)}
+                            disabled={updateStatusMutation.isPending}
+                            className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                              vendor.isActive
+                                ? 'bg-red-100 text-red-700 hover:bg-red-200 dark:bg-red-900/20 dark:text-red-400'
+                                : 'bg-green-100 text-green-700 hover:bg-green-200 dark:bg-green-900/20 dark:text-green-400'
+                            }`}
+                          >
+                            {vendor.isActive ? 'Block' : 'Publish'}
+                          </button>
+                          <button
+                            onClick={() => handleVerifyToggle(vendor._id, vendor.isVerified)}
+                            disabled={verifyMutation.isPending}
+                            className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                              vendor.isVerified
+                                ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400'
+                                : 'bg-blue-100 text-blue-700 hover:bg-blue-200 dark:bg-blue-900/20 dark:text-blue-400'
+                            }`}
+                          >
+                            {vendor.isVerified ? 'Unverify' : 'Verify'}
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))}
